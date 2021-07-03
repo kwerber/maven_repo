@@ -16,11 +16,35 @@ const val CUSTOM_REPOSITORY_NAME = "github_maven_repo"
 class GradleGithubPublisherPlugin: Plugin<Project> {
 
     abstract class GithubPublishExtension constructor(project: Project) {
+        /**
+         * URL of the maven/git repo
+         */
         abstract val githubRepoUrl: Property<URI>
+
+        /**
+         * Path where the maven repo should be cloned to
+         */
         abstract val localRepoDir: Property<File>
+
+        /**
+         * The name associated with all publications.
+         */
         abstract val committerName: Property<String>
+
+        /**
+         * The email address associated with all publications.
+         */
         abstract val committerEmail: Property<String>
+
+        /**
+         * Whether or not to push the commits to the maven repo after committing them.
+         */
         abstract val pushChanges: Property<Boolean>
+
+        /**
+         * Which gpg key to use to sign the commits.
+         */
+        abstract val signingKey: Property<String>
 
         init {
             githubRepoUrl.convention(URI.create("https://github.com/kwerber/maven_repo"))
@@ -81,10 +105,6 @@ class GradleGithubPublisherPlugin: Plugin<Project> {
             clone(ext.githubRepoUrl.get().toString(), ext.localRepoDir.get())
 
             task.logger.info("Clone finished.")
-
-            if (ext.committerName.isPresent && ext.committerEmail.isPresent) {
-                setupCredentials(repoDir, ext.committerName.get(), ext.committerEmail.get())
-            }
         }
         else {
             task.logger.info("Pulling changes from remote github repository...")
@@ -93,6 +113,9 @@ class GradleGithubPublisherPlugin: Plugin<Project> {
 
             task.logger.info("Pull finished.")
         }
+
+        // Always setup credentials
+        setupCredentials(repoDir, ext.committerName.orNull, ext.committerEmail.orNull, ext.signingKey.orNull)
     }
 
     @OptIn(ExperimentalPathApi::class)
@@ -112,7 +135,13 @@ class GradleGithubPublisherPlugin: Plugin<Project> {
         val tag = pub.groupId + "/" + pub.artifactId + "/" + pub.version
 
         if (hasTag(repoDir, tag)) {
-            throw IllegalStateException("artifact $tag has already been published. Maybe adjust the artifact version?")
+            if (pub.version.endsWith("-SNAPSHOT")) {
+                // Delete old tag and create new one later
+                deleteTag(repoDir, tag)
+            }
+            else {
+                throw IllegalStateException("artifact $tag has already been published. Maybe adjust the artifact version?")
+            }
         }
 
         // Prepare
@@ -128,7 +157,7 @@ class GradleGithubPublisherPlugin: Plugin<Project> {
         // Commit changes
         val message = "Release ${pub.artifactId} ${pub.version}"
 
-        commitChanges(repoDir, message)
+        commitChanges(repoDir, message, ext.signingKey.isPresent)
 
         task.logger.info("Commited changes.")
 

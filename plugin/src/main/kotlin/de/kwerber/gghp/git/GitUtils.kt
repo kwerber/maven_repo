@@ -93,13 +93,31 @@ fun hasTag(repoDir: File, tag: String): Boolean {
     return exec(repoDir, "git", "tag", "--list", tag).isNotBlank()
 }
 
-fun setupCredentials(repoDir: File, authorName: String, authorEmail: String) {
-    exec(repoDir, "git", "config", "--local", "user.name", authorName)
-    exec(repoDir, "git", "config", "--local", "user.email", authorEmail)
+fun deleteTag(repoDir: File, tag: String) {
+    exec(repoDir, "git", "tag", "-d", tag)
 }
 
-fun commitChanges(repoDir: File, message: String) {
-    exec(repoDir, "git", "commit", "-m", "\"${message}\"")
+fun setupCredentials(repoDir: File, authorName: String?, authorEmail: String?, signingKey: String?) {
+    if (authorName != null) {
+        exec(repoDir, "git", "config", "--local", "user.name", authorName)
+    }
+
+    if (authorEmail != null) {
+        exec(repoDir, "git", "config", "--local", "user.email", authorEmail)
+    }
+
+    if (signingKey != null) {
+        exec(repoDir, "git", "config", "--local", "user.signingkey", signingKey)
+    }
+}
+
+fun commitChanges(repoDir: File, message: String, sign: Boolean) {
+    if (sign) {
+        exec(repoDir, "git", "commit", "-S", "-m", "\"${message}\"")
+    }
+    else {
+        exec(repoDir, "git", "commit", "-m", "\"${message}\"")
+    }
 }
 
 fun pullChanges(repoDir: File) {
