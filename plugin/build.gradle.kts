@@ -23,11 +23,10 @@ dependencies {
     testImplementation("org.jetbrains.kotlin:kotlin-test-junit")
 }
 
-group = "de.kwerber"
-version = "0.1"
+group = "de.kwerber.ghpub"
+version = "0.2"
 
 gradlePlugin {
-    // Define the plugin
     val ghpub by plugins.creating {
         id = "de.kwerber.ghpub"
         displayName = "GradleGithubPublisher"
@@ -60,14 +59,6 @@ tasks.check {
 }
 
 publishing {
-    publications {
-        create<MavenPublication>("maven") {
-            groupId = "de.kwerber"
-            artifactId = "ghpub"
-            version = "0.1"
-            from(components["java"])
-        }
-    }
     repositories {
         maven {
             name = "github-repo"
