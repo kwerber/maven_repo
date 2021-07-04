@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<metadata modelVersion="1.1.0">
+  <groupId>de.kwerber</groupId>
+  <artifactId>abc</artifactId>
+  <version>0.2-SNAPSHOT</version>
+  <versioning>
+    <snapshot>
+      <timestamp>20210704.195034</timestamp>
+      <buildNumber>1</buildNumber>
+    </snapshot>
+    <lastUpdated>20210704195034</lastUpdated>
+    <snapshotVersions>
+      <snapshotVersion>
+        <extension>module</extension>
+        <value>0.2-20210704.195034-1</value>
+        <updated>20210704195034</updated>
+      </snapshotVersion>
+      <snapshotVersion>
+        <extension>jar</extension>
+        <value>0.2-20210704.195034-1</value>
+        <updated>20210704195034</updated>
+      </snapshotVersion>
+      <snapshotVersion>
+        <extension>pom</extension>
+        <value>0.2-20210704.195034-1</value>
+        <updated>20210704195034</updated>
+      </snapshotVersion>
+    </snapshotVersions>
+  </versioning>
+</metadata>
