@@ -3,11 +3,10 @@ package de.kwerber.gghp
 import de.kwerber.gghp.git.*
 import org.gradle.api.Plugin
 import org.gradle.api.Project
-import org.gradle.api.provider.Property
 import org.gradle.api.publish.PublishingExtension
+import org.gradle.api.publish.maven.plugins.MavenPublishPlugin
 import org.gradle.api.publish.maven.tasks.PublishToMavenRepository
 import java.io.File
-import java.net.URI
 import kotlin.io.path.ExperimentalPathApi
 import kotlin.io.path.toPath
 
@@ -15,56 +14,18 @@ const val CUSTOM_REPOSITORY_NAME = "github_maven_repo"
 
 class GradleGithubPublisherPlugin: Plugin<Project> {
 
-    abstract class GithubPublishExtension constructor(project: Project) {
-        /**
-         * URL of the maven/git repo
-         */
-        abstract val githubRepoUrl: Property<URI>
-
-        /**
-         * Path where the maven repo should be cloned to
-         */
-        abstract val localRepoDir: Property<File>
-
-        /**
-         * The name associated with all publications.
-         */
-        abstract val committerName: Property<String>
-
-        /**
-         * The email address associated with all publications.
-         */
-        abstract val committerEmail: Property<String>
-
-        /**
-         * Whether or not to push the commits to the maven repo after committing them.
-         */
-        abstract val pushChanges: Property<Boolean>
-
-        /**
-         * Which gpg key to use to sign the commits.
-         */
-        abstract val signingKey: Property<String>
-
-        init {
-            githubRepoUrl.convention(URI.create("https://github.com/kwerber/maven_repo"))
-            localRepoDir.convention(project.projectDir.resolve("build").resolve(CUSTOM_REPOSITORY_NAME))
-            pushChanges.convention(true)
-        }
-    }
-
     override fun apply(project: Project) {
         // Provide extension for configuration
-        val extension = project.extensions.create(
-            "githubPublish", GithubPublishExtension::class.java, project)
+        project.extensions.create("githubPublish", GithubPublishExtension::class.java, project)
 
-        if (project.plugins.hasPlugin("maven-publish")) {
+        project.plugins.withType(MavenPublishPlugin::class.java) {
             // Hook into maven publish plugin to setup custom local repository
-            val publishing = project.extensions.getByType(PublishingExtension::class.java)
+            val publishing: PublishingExtension = project.extensions.getByType(PublishingExtension::class.java)
+            val ext: GithubPublishExtension = project.extensions.getByType(GithubPublishExtension::class.java)
 
-            publishing.repositories.maven() {
+            publishing.repositories.maven {
                 it.name = CUSTOM_REPOSITORY_NAME
-                it.url = extension.localRepoDir.get().toURI()
+                it.url = ext.localRepoDir.get().toURI()
             }
 
             // Catch whenever some publication is to be published to the custom local repository
@@ -114,8 +75,12 @@ class GradleGithubPublisherPlugin: Plugin<Project> {
             task.logger.info("Pull finished.")
         }
 
-        // Always setup credentials
+        // Always setup credentials and switch to the correct branch
         setupCredentials(repoDir, ext.committerName.orNull, ext.committerEmail.orNull, ext.signingKey.orNull)
+
+        if (ext.githubRepoBranch.isPresent) {
+            switchToBranch(repoDir, ext.githubRepoBranch.get())
+        }
     }
 
     @OptIn(ExperimentalPathApi::class)
@@ -159,7 +124,7 @@ class GradleGithubPublisherPlugin: Plugin<Project> {
 
         commitChanges(repoDir, message, ext.signingKey.isPresent)
 
-        task.logger.info("Commited changes.")
+        task.logger.info("Committed changes.")
 
         // Tag changes
         tagLatestCommit(repoDir, tag)
