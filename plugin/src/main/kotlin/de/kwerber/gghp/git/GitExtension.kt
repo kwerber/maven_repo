@@ -1,15 +1,13 @@
-package de.kwerber.gghp
+package de.kwerber.gghp.git
 
-import de.kwerber.gghp.git.clone
-import de.kwerber.gghp.git.cloneInNonEmptyDir
 import java.io.File
 
 fun File.isGitRepo(): Boolean {
-    return de.kwerber.gghp.git.isGitRepo(this)
+    return isGitRepo(this)
 }
 
 fun File.stageChanges() {
-    return de.kwerber.gghp.git.stageChanges(this)
+    return stageChanges(this)
 }
 
 fun File.makeGitRepo(repoUrl: String) {
