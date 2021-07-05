@@ -36,12 +36,6 @@ class GradleGithubPublisherPluginFunctionalTest {
                 githubRepoUrl.set(uri("https://github.com/kwerber/abc_repo.git"))
                 pushChanges.set(false)
             }
-            
-            //tasks.withType<de.kwerber.gghp.GithubPublishTask>() {
-            //    committerName.set("kwerber")
-            //    committerEmail.set("werberkevin@gmail.com")
-            //    githubRepoUrl.set(uri("https://github.com/kwerber/abc_repo.git"))
-            //}
         """)
 
         // Run the build
@@ -53,7 +47,6 @@ class GradleGithubPublisherPluginFunctionalTest {
         val result = runner.build();
 
         // Verify the result
-        //assertTrue(result.output.contains("Hello from plugin 'de.kwerber.gghp.greeting'"))
         assertTrue(projectDir.resolve("build").resolve("github_maven_repo").exists())
     }
 }
