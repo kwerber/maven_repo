@@ -24,7 +24,7 @@ dependencies {
 }
 
 group = "de.kwerber.ghpub"
-version = "0.2"
+version = "0.3"
 
 gradlePlugin {
     val ghpub by plugins.creating {
