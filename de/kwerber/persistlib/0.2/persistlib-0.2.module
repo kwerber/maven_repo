@@ -1,0 +1,92 @@
+{
+  "formatVersion": "1.1",
+  "component": {
+    "group": "de.kwerber",
+    "module": "persistlib",
+    "version": "0.2",
+    "attributes": {
+      "org.gradle.status": "release"
+    }
+  },
+  "createdBy": {
+    "gradle": {
+      "version": "7.0.2"
+    }
+  },
+  "variants": [
+    {
+      "name": "apiElements",
+      "attributes": {
+        "org.gradle.category": "library",
+        "org.gradle.dependency.bundling": "external",
+        "org.gradle.jvm.version": 16,
+        "org.gradle.libraryelements": "jar",
+        "org.gradle.usage": "java-api"
+      },
+      "dependencies": [
+        {
+          "group": "javax.persistence",
+          "module": "javax.persistence-api",
+          "version": {
+            "requires": "2.2"
+          }
+        }
+      ],
+      "files": [
+        {
+          "name": "persistlib-0.2.jar",
+          "url": "persistlib-0.2.jar",
+          "size": 58754,
+          "sha512": "2972fe6fd42516c260b46ea3115ca80993a9624e99a2f190ff4760b295e5cccab183b4d1180ec667ebbfd6e281a321e882719bcad34abff1745ed04490eb1dad",
+          "sha256": "e4671a0a1b500ab4cbaf26b15c4f4d0e43abfba14c8a486428626984bb64bcab",
+          "sha1": "b576086882aa6a0744311f9c02e852472eee1168",
+          "md5": "3575e28532861ad1f905127d5f605228"
+        }
+      ]
+    },
+    {
+      "name": "runtimeElements",
+      "attributes": {
+        "org.gradle.category": "library",
+        "org.gradle.dependency.bundling": "external",
+        "org.gradle.jvm.version": 16,
+        "org.gradle.libraryelements": "jar",
+        "org.gradle.usage": "java-runtime"
+      },
+      "dependencies": [
+        {
+          "group": "ch.vorburger.mariaDB4j",
+          "module": "mariaDB4j",
+          "version": {
+            "requires": "2.4.0"
+          }
+        },
+        {
+          "group": "org.mariadb.jdbc",
+          "module": "mariadb-java-client",
+          "version": {
+            "requires": "2.7.2"
+          }
+        },
+        {
+          "group": "javax.persistence",
+          "module": "javax.persistence-api",
+          "version": {
+            "requires": "2.2"
+          }
+        }
+      ],
+      "files": [
+        {
+          "name": "persistlib-0.2.jar",
+          "url": "persistlib-0.2.jar",
+          "size": 58754,
+          "sha512": "2972fe6fd42516c260b46ea3115ca80993a9624e99a2f190ff4760b295e5cccab183b4d1180ec667ebbfd6e281a321e882719bcad34abff1745ed04490eb1dad",
+          "sha256": "e4671a0a1b500ab4cbaf26b15c4f4d0e43abfba14c8a486428626984bb64bcab",
+          "sha1": "b576086882aa6a0744311f9c02e852472eee1168",
+          "md5": "3575e28532861ad1f905127d5f605228"
+        }
+      ]
+    }
+  ]
+}
