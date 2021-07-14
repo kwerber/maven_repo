@@ -1,0 +1,84 @@
+{
+  "formatVersion": "1.1",
+  "component": {
+    "group": "de.kwerber.ghpub",
+    "module": "plugin",
+    "version": "0.3",
+    "attributes": {
+      "org.gradle.status": "release"
+    }
+  },
+  "createdBy": {
+    "gradle": {
+      "version": "7.0.2"
+    }
+  },
+  "variants": [
+    {
+      "name": "apiElements",
+      "attributes": {
+        "org.gradle.category": "library",
+        "org.gradle.dependency.bundling": "external",
+        "org.gradle.jvm.version": 16,
+        "org.gradle.libraryelements": "jar",
+        "org.gradle.usage": "java-api",
+        "org.jetbrains.kotlin.localToProject": "public",
+        "org.jetbrains.kotlin.platform.type": "jvm"
+      },
+      "files": [
+        {
+          "name": "plugin-0.3.jar",
+          "url": "plugin-0.3.jar",
+          "size": 18774,
+          "sha512": "9b8a850e32d49be8da4931b8b82c723c0b42fff75f1c8bf6703e5618b36c80a524a1bb9e3244139519a8e64f1e038727a5180396eef01f20d5e0c50b440f90a2",
+          "sha256": "723de8b7c88e417e6321e5e60f897b79c3e3e8a50b0b51cf46cdc499b54d4275",
+          "sha1": "c9b90934825a4e75704438257306e68fa9c1a2db",
+          "md5": "5f53118763fe2f1f1aef3a546026e060"
+        }
+      ]
+    },
+    {
+      "name": "runtimeElements",
+      "attributes": {
+        "org.gradle.category": "library",
+        "org.gradle.dependency.bundling": "external",
+        "org.gradle.jvm.version": 16,
+        "org.gradle.libraryelements": "jar",
+        "org.gradle.usage": "java-runtime",
+        "org.jetbrains.kotlin.localToProject": "public",
+        "org.jetbrains.kotlin.platform.type": "jvm"
+      },
+      "dependencies": [
+        {
+          "group": "org.jetbrains.kotlin",
+          "module": "kotlin-bom",
+          "version": {
+            "requires": "1.4.31"
+          },
+          "attributes": {
+            "org.gradle.category": "platform"
+          },
+          "endorseStrictVersions": true
+        },
+        {
+          "group": "org.jetbrains.kotlin",
+          "module": "kotlin-stdlib-jdk8",
+          "version": {
+            "requires": "1.4.31"
+          }
+        }
+      ],
+      "files": [
+        {
+          "name": "plugin-0.3.jar",
+          "url": "plugin-0.3.jar",
+          "size": 18774,
+          "sha512": "9b8a850e32d49be8da4931b8b82c723c0b42fff75f1c8bf6703e5618b36c80a524a1bb9e3244139519a8e64f1e038727a5180396eef01f20d5e0c50b440f90a2",
+          "sha256": "723de8b7c88e417e6321e5e60f897b79c3e3e8a50b0b51cf46cdc499b54d4275",
+          "sha1": "c9b90934825a4e75704438257306e68fa9c1a2db",
+          "md5": "5f53118763fe2f1f1aef3a546026e060"
+        }
+      ]
+    }
+  ]
+}
