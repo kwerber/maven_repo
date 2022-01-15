@@ -3,7 +3,7 @@
   "component": {
     "group": "de.kwerber",
     "module": "persistlib",
-    "version": "0.4.4",
+    "version": "0.4.5",
     "attributes": {
       "org.gradle.status": "release"
     }
@@ -34,8 +34,8 @@
       ],
       "files": [
         {
-          "name": "persistlib-0.4.4.jar",
-          "url": "persistlib-0.4.4.jar",
+          "name": "persistlib-0.4.5.jar",
+          "url": "persistlib-0.4.5.jar",
           "size": 63097,
           "sha512": "4b0b960f44175c66c9aa785ffc7a095f4414226b3d1b9f5e27d43410c996e9269a4e96e89b42e877a7bf1c66676798a7675d6c3a2a32559d3d13bec659baa42c",
           "sha256": "e8d80c8fda85a0633fc31a2f94ee198bdb6efb70550891cb027aaa15b2ea1201",
@@ -78,8 +78,8 @@
       ],
       "files": [
         {
-          "name": "persistlib-0.4.4.jar",
-          "url": "persistlib-0.4.4.jar",
+          "name": "persistlib-0.4.5.jar",
+          "url": "persistlib-0.4.5.jar",
           "size": 63097,
           "sha512": "4b0b960f44175c66c9aa785ffc7a095f4414226b3d1b9f5e27d43410c996e9269a4e96e89b42e877a7bf1c66676798a7675d6c3a2a32559d3d13bec659baa42c",
           "sha256": "e8d80c8fda85a0633fc31a2f94ee198bdb6efb70550891cb027aaa15b2ea1201",
